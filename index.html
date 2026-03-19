@@ -759,6 +759,14 @@ function updateProgress() {
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressPct').textContent = pct + '%';
 }
+  rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /clients/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}
 
 // ── TABS ──
 function switchTab(tab) {
